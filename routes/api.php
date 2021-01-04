@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+Route::apiResource('place', 'App\Http\Controllers\PlaceController');
 
 Route::middleware('auth:api')->group(function () {
-    Route::resource('place', PlaceController::class);
+    // Route::resource('place', PlaceController::class);
 });

@@ -1,63 +1,56 @@
 <?php
 
 namespace App\Http\Controllers\API;
-use App\Models\User;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 
+use App\Http\Requests\UserFormRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use App\Http\Response\Utility\ResponseType;
+use Dev\Domain\Service\UserService;
+use Illuminate\Http\Request;
+
+/**
+ * Class UserController
+ * @package App\Http\Controllers
+ */
 class UserController extends Controller
 {
     /**
-     * Register api
-     *
-     * @return \Illuminate\Http\Response
+     * @var UserService $userService
      */
-    public function register(Request $request)
+    private $userService;
+
+    /**
+     * UserController constructor.
+     * @param UserService $userService
+     */
+    public function __construct(UserService $userService)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required',
-            'c_password' => 'required|same:password',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Missing or Wrong data'
-            ]);
-        }
-
-        $input = $request->all();
-        $input['password'] = bcrypt($input['password']);
-
-        $user = User::create($input);
-
-        $success['token'] =  $user->createToken('MyApp')->accessToken;
-
-        return $this->sendResponse($success, 'User register successfully.');
+        $this->userService = $userService;
     }
 
     /**
-     * Login api
+     * Register New User
      *
-     * @return \Illuminate\Http\Response
+     * @param  UserFormRequest $request
+     * @return UserResource
+     */
+    public function register(UserFormRequest $request)
+    {
+        $user = $this->userService->register($request->validated());
+        return (new UserResource($user))
+            ->additional(ResponseType::simpleResponse('User has been created', true));
+    }
+
+    /**
+     * Login to get user token
+     *
+     * @param  Request $request
      */
     public function login(Request $request)
     {
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('MyApp')->accessToken;
-
-            return response()->json([
-                'message' => 'Login Successfully',
-                'data' => $success
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'UnAuthorized',
-            ]);
-        }
+        $user = $this->userService->login($request);
+        return response()->json(['data', $user]);
     }
+
 }
