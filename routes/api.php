@@ -25,6 +25,8 @@ Route::apiResource('menuProduct', 'App\Http\Controllers\MenuProductController');
 Route::apiResource('placeRate', 'App\Http\Controllers\PlaceRateController');
 Route::apiResource('userRate', 'App\Http\Controllers\UserRateController');
 Route::apiResource('tag', 'App\Http\Controllers\TagController');
+Route::apiResource('favourite', 'App\Http\Controllers\FavouriteController');
+Route::apiResource('circle', 'App\Http\Controllers\CircleController');
 
 Route::middleware('auth:api')->group(function () {
     // Route::resource('place', PlaceController::class);

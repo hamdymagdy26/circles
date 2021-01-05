@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class UserRate extends Model
+class Favourite extends Model
 {
     use HasFactory, SoftDeletes;
 

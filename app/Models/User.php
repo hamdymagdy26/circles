@@ -46,4 +46,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserRate::class, 'user_id', 'id');
     }
+
+    public function favourites()
+    {
+        return $this->hasMany(Favourite::class, 'user_id', 'id');
+    }
+
+    public function circles()
+    {
+        return $this->belongsToMany(Circle::class, 'circle_users');
+    }
 }
