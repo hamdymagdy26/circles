@@ -16,7 +16,7 @@ class MenuProductResource extends AbstractJsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'category_id' => $this->category_id,
+            'menu_category_id' => $this->menu_category_id,
             'price' => $this->price
         ];
     }

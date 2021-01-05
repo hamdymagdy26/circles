@@ -25,7 +25,13 @@ class PlaceFormRequest extends AbstractFormRequest
                     'latitude' => 'required',
                     'place_type_id' => 'required|numeric|exists:place_types,id',
                     'tags' => 'array',
-                    'tags.*' => 'numeric|exists:tags,id'
+                    'tags.*' => 'numeric|exists:tags,id',
+                    'placeInformation' => 'array',
+                    'placeInformation.*.place_id' => 'numeric|exists:places,id',
+                    'placeInformation.*.seat_type' => 'numeric',
+                    'placeInformation.*.seatNumber' => 'numeric',
+                    'placeInformation.*.pricePerSeat' => 'numeric',
+                    'placeInformation.*.seatLevel' => 'numeric'
                 ];
             }
         }
@@ -38,7 +44,13 @@ class PlaceFormRequest extends AbstractFormRequest
                     'latitude' => 'required',
                     'place_type_id' => 'required|numeric|exists:place_types,id',
                     'tags' => 'array',
-                    'tags.*' => 'numeric|exists:tags,id'
+                    'tags.*' => 'numeric|exists:tags,id',
+                    'placeInformation' => 'array',
+                    'placeInformation.*.place_id' => 'numeric|exists:places,id',
+                    'placeInformation.*.seat_type' => 'numeric',
+                    'placeInformation.*.seatNumber' => 'numeric',
+                    'placeInformation.*.pricePerSeat' => 'numeric',
+                    'placeInformation.*.seatLevel' => 'numeric'
                 ];
             }
         }

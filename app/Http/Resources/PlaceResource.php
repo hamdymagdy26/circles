@@ -20,6 +20,8 @@ class PlaceResource extends AbstractJsonResource
             'longitude' => $this->longitude,
             'latitude' => $this->latitude,
             'place_type_id' => $this->place_type_id,
+            'information' => PlaceInformationResource::collection($this->placeInformation),
+            'place_type' => new PlaceTypeResource($this->placeType)
         ];
     }
 }

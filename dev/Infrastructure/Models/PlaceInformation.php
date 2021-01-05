@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class MenuProduct extends Model
+class PlaceInformation extends Model
 {
     use HasFactory, SoftDeletes;
 
     protected $guarded = ['id'];
 
-    public function menuCategory()
+    public function place()
     {
-        return $this->belongsTo(MenuCategory::class, 'menu_category_id', 'id');
+        return $this->belongsTo(Place::class, 'place_id');
     }
 }

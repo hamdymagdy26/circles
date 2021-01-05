@@ -19,6 +19,6 @@ class MenuCategory extends Model
 
     public function menuProducts()
     {
-        return $this->hasMany(MenuProduct::class, 'category_id', 'id');
+        return $this->hasMany(MenuProduct::class, 'menu_category_id', 'id');
     }
 }

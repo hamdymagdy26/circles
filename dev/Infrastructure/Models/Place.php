@@ -32,4 +32,9 @@ class Place extends Model
         return $this->belongsToMany(Tag::class, 'place_tags');
     }
 
+    public function placeInformation()
+    {
+        return $this->hasMany(PlaceInformation::class, 'place_id', 'id');
+    }
+
 }

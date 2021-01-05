@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\PlaceResource;
 use App\Http\Resources\Abstracts\AbstractJsonResource;
 
-class UserRateResource extends AbstractJsonResource
+class PlaceInformationResource extends AbstractJsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +16,11 @@ class UserRateResource extends AbstractJsonResource
     {
         return [
             'id' => $this->id,
-            'stars' => $this->stars,
             'place_id' => $this->place_id,
-            'user_id' => $this->user_id,
-            'favourites' => FavouriteResource::collection($this->favourites)
+            'seat_type' => $this->seat_type,
+            'seatNumber' => $this->seatNumber,
+            'pricePerSeat' => $this->pricePerSeat,
+            'seatLevel' => $this->seatLevel,
         ];
     }
 }

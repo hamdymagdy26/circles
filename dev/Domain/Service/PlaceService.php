@@ -43,6 +43,17 @@ class PlaceService extends AbstractService
         if (isset($data['tags'])) {
             $insertPlace->tags()->attach($data['tags']);
         }
+
+        if(isset($data['placeInformation'])) {
+            foreach ($data['placeInformation'] as $key => $information) {
+                $insertPlace->placeInformation()->create([
+                'seat_type' => $information['seat_type'],
+                'seatNumber' => $information['seatNumber'],
+                'pricePerSeat' => $information['pricePerSeat'],
+                'seatLevel' => $information['seatLevel'],
+                ]);
+            }
+        }
         
         return $insertPlace;
     }
@@ -102,7 +113,9 @@ class PlaceService extends AbstractService
     public function delete(Place $place)
     {
         $place->delete();
-        $place->menus()->delete();
+        $place->placeInformation()->delete();
         $place->rates()->delete();
+        $place->tags()->delete();
+        $place->menus()->delete();
     }
 }

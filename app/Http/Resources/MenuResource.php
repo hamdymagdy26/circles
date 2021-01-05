@@ -17,6 +17,7 @@ class MenuResource extends AbstractJsonResource
             'id' => $this->id,
             'name' => $this->name,
             'place_id' => $this->place_id,
+            'menu_categories' => MenuCategoryResource::collection($this->categories)
         ];
     }
 }

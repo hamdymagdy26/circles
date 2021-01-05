@@ -17,6 +17,7 @@ class MenuCategoryResource extends AbstractJsonResource
             'id' => $this->id,
             'name' => $this->name,
             'menu_id' => $this->menu_id,
+            'menu_products' => MenuProductResource::collection($this->menuProducts)
         ];
     }
 }
