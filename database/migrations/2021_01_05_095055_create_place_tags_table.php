@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlacesTable extends Migration
+class CreatePlaceTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,10 @@ class CreatePlacesTable extends Migration
      */
     public function up()
     {
-        Schema::create('places', function (Blueprint $table) {
+        Schema::create('place_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('image');
-            $table->string('longitude');
-            $table->string('latitude');
-            $table->foreignId('place_type_id')->constrained('place_types')->onDelete('cascade');
-            $table->softDeletes();
+            $table->foreignId('place_id')->constrained('places')->onDelete('cascade');
+            $table->foreignId('tag_id')->constrained('tags')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ class CreatePlacesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('places');
+        Schema::dropIfExists('place_tags');
     }
 }

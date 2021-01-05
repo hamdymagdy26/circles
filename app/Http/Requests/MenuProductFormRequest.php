@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
-class KitchenCategoryFormRequest extends AbstractFormRequest
+class MenuProductFormRequest extends AbstractFormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -19,16 +19,20 @@ class KitchenCategoryFormRequest extends AbstractFormRequest
         if ($method == 'POST') {
             if ($actionName == 'store') {
                 return [
-                    'name_ar' => ['required', Rule::unique('kitchen_categories', 'name_ar')->whereNull('deleted_at')],
-                    'name_en' => ['required', Rule::unique('kitchen_categories', 'name_en')->whereNull('deleted_at')],
+                    'name' => ['required', Rule::unique('places', 'name')->whereNull('deleted_at')],
+                    'menu_category_id' => 'required|numeric|exists:menu_categories,id',
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'price' => 'required|numeric'
                 ];
             }
         }
         if ($method == 'PUT') {
             if ($actionName == 'update') {
                 return [
-                    'name_ar' => 'sometimes|required|string',
-                    'name_en' => 'sometimes|required|string',
+                    'name' => 'required',
+                    'menu_category_id' => 'required|numeric|exists:menu_categories,id',
+                    'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                    'price' => 'required|numeric'
                 ];
             }
         }

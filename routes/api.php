@@ -18,6 +18,13 @@ use App\Http\Controllers\API\UserController;
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 Route::apiResource('place', 'App\Http\Controllers\PlaceController');
+Route::apiResource('placeType', 'App\Http\Controllers\PlaceTypeController');
+Route::apiResource('menu', 'App\Http\Controllers\MenuController');
+Route::apiResource('menuCategory', 'App\Http\Controllers\MenuCategoryController');
+Route::apiResource('menuProduct', 'App\Http\Controllers\MenuProductController');
+Route::apiResource('placeRate', 'App\Http\Controllers\PlaceRateController');
+Route::apiResource('userRate', 'App\Http\Controllers\UserRateController');
+Route::apiResource('tag', 'App\Http\Controllers\TagController');
 
 Route::middleware('auth:api')->group(function () {
     // Route::resource('place', PlaceController::class);

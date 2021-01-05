@@ -35,10 +35,16 @@ class PlaceService extends AbstractService
                 'image',
                 'longitude',
                 'latitude',
-                'type_id'
+                'place_type_id'
             ]
         );
-        return $this->repository->create($placeData);
+        $insertPlace = $this->repository->create($placeData);
+
+        if (isset($data['tags'])) {
+            $insertPlace->tags()->attach($data['tags']);
+        }
+        
+        return $insertPlace;
     }
 
     /**
@@ -75,10 +81,17 @@ class PlaceService extends AbstractService
                 'image',
                 'longitude',
                 'latitude',
-                'type_id'
+                'place_type_id'
             ]
         );
+
+        $place = $this->repository->find($id);
+
         $this->repository->where('id', $id)->update($placeData);
+
+        if (isset($data['tags'])) {
+            $place->tags()->sync($data['tags']);
+        }
         return $this->show($id);
     }
 
@@ -89,5 +102,7 @@ class PlaceService extends AbstractService
     public function delete(Place $place)
     {
         $place->delete();
+        $place->menus()->delete();
+        $place->rates()->delete();
     }
 }

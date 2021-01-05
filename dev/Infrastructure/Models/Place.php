@@ -12,4 +12,24 @@ class Place extends Model
 
     protected $guarded = ['id'];
 
+    public function placeType()
+    {
+        return $this->belongsTo(PlaceType::class, 'place_type_id', 'id');
+    }
+
+    public function menus()
+    {
+        return $this->hasMany(Menu::class, 'place_id', 'id');
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(PlaceRate::class, 'place_id', 'id');
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'place_tags');
+    }
+
 }
